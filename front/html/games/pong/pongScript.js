@@ -299,11 +299,21 @@ gameSM.registerCallback(GAME_TYPES.GAME_SCORE, data => {
 });
 
 gameSM.registerCallback(GAME_TYPES.LIST_TOURNAMENTS, data => {
-    console.log('LIST TOURNAMENT')
-    console.log(data)
-    if (data.game == GAMES.PONG) {
+//    if (data.game == GAMES.PONG) {
         fillTournamentsList(data.data);
-    }
+//    }
+});
+// gameSM.registerCallback(GAME_TYPES.END_TOURNAMENT, data => {
+    // fillTournamentsList(data.data);
+    // toggleView(tourn);
+// });
+
+gameSM.registerCallback(GAME_TYPES.ADMIN_OUT, data => {
+//    if (data.game == GAMES.PONG) {
+        fillTournamentsList(data.data);
+        toggleView(tournamentView, true);
+        toggleView(tournamentReadyView, false);
+//    }
 });
 
 gameSM.registerCallback(GAME_TYPES.LIST_GAMES, data => {
@@ -373,7 +383,6 @@ gameSM.registerCallback(GAME_TYPES.IN_TOURNAMENT, data => {
         console.log()
         if (isPlaying)
         {
-            console.log('ME piro')
             return;
         }
         fillTournamentData(data.data)
@@ -486,7 +495,6 @@ function fillTournamentsList(data) {
 }
 
 function fillTournamentData(data) {
-    console.log('Flling data')
     //Joined
     let tournamentName = document.getElementById("tournament_name_joinned");
     let nbrPlayers = document.getElementById("tournament_number_joined");

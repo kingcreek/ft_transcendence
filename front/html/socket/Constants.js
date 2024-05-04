@@ -52,6 +52,7 @@ export const GAME_TYPES = {
     IN_TOURNAMENT:          'in_tournament',
     TOURNAMENT_TABLE:       'tournament_table',
     TOURNAMENT_PLAYERS:     'tournament_players',
+    ADMIN_OUT:              'admin_out',
 
     // Game
     LIST_GAMES:             'list_games',

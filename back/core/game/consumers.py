@@ -49,6 +49,8 @@ LIST_TOURNAMENTS    = 'list_tournaments'
 IN_TOURNAMENT       = 'in_tournament'
 TOURNAMENT_TABLE    = 'tournament_table'
 TOURNAMENT_PLAYERS  = 'tournament_players'
+ADMIN_OUT           = 'admin_out'
+END_TOURNAMENT      = 'end_tournament'
 
 
 class MultiplayerConsumer(AsyncWebsocketConsumer):
@@ -214,7 +216,7 @@ class MultiplayerConsumer(AsyncWebsocketConsumer):
             # If owner leave, tounrament are removed
             if tournaments[tournament_id]["adminId"] == user.id:
                 del tournaments[tournament_id]
-                await send_to_group(self, GENERAL_GAME, LIST_TOURNAMENTS, self.getTournamentList(game_req))
+                await send_to_group(self, GENERAL_GAME, ADMIN_OUT, self.getTournamentList(game_req))
                 # Remove all participants
                 for i, participant in enumerate(participants):
                     await self.channel_layer.group_discard(tournament_id, participant['channel_name'])
@@ -224,7 +226,7 @@ class MultiplayerConsumer(AsyncWebsocketConsumer):
                 if participant['userid'] == user.id:
                     await self.channel_layer.group_discard(tournament_id, self.channel_name)
                     participants.pop(i)
-                    await send_to_group(self, GENERAL_GAME, LIST_TOURNAMENTS, self.getTournamentList(game_req))
+                    await send_to_group(self, GENERAL_GAME, IN_TOURNAMENT, {"game": "Pong", "data": self.getSingleTournament(tournament_id)})
                     return
     
     async def createTournament(self, user, data):
