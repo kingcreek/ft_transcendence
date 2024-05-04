@@ -299,6 +299,8 @@ gameSM.registerCallback(GAME_TYPES.GAME_SCORE, data => {
 });
 
 gameSM.registerCallback(GAME_TYPES.LIST_TOURNAMENTS, data => {
+    console.log('LIST TOURNAMENT')
+    console.log(data)
     if (data.game == GAMES.PONG) {
         fillTournamentsList(data.data);
     }
@@ -366,9 +368,14 @@ gameSM.registerCallback(GAME_TYPES.TOURNAMENT_CREATED, data => {
 });
 
 gameSM.registerCallback(GAME_TYPES.IN_TOURNAMENT, data => {
+    console.log(data)
     if (data.game == GAMES.PONG) {
+        console.log()
         if (isPlaying)
+        {
+            console.log('ME piro')
             return;
+        }
         fillTournamentData(data.data)
         toggleView(optionsView, false);
         toggleView(tournamentReadyView, true);
@@ -479,7 +486,7 @@ function fillTournamentsList(data) {
 }
 
 function fillTournamentData(data) {
-
+    console.log('Flling data')
     //Joined
     let tournamentName = document.getElementById("tournament_name_joinned");
     let nbrPlayers = document.getElementById("tournament_number_joined");

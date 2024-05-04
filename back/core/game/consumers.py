@@ -346,7 +346,7 @@ class MultiplayerConsumer(AsyncWebsocketConsumer):
                     tournaments[tournament_id]['started'] = True
                     await self.startTournament(tournament_id)
                 # We can replace to send only information of only 1 tournament instead entire list
-                await send_to_group(self, GENERAL_GAME, LIST_TOURNAMENTS, self.getTournamentList(game_req))
+                await send_to_group(self, GENERAL_GAME, IN_TOURNAMENT, {"game": "Pong", "data": self.getSingleTournament(tournament_id)})
 
     async def startTournament(self, tournament_id):
         tournament = tournaments[tournament_id]
