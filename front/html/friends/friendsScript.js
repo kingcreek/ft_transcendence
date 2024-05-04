@@ -4,6 +4,7 @@ import { displayErrorList, displayMessage } from "../components/loader.js"
 import { NotificationsSocketManager } from "../socket/NotificationsSocketManager.js"
 import { CHAT_TYPES, FRIENDS } from '../socket/Constants.js';
 import { connectNotifications, logOut} from '../index/index.js';
+import { createWindow } from "../index/index.js"
 
 let NotificationsSM = new NotificationsSocketManager();
 
@@ -61,6 +62,10 @@ async function loadUsersTable() {
                     <td>${friend.username}</td>
                     <td>${friend.status}</td>
                     <td><button type="button" class="btn btn-danger" id=DELETE_${friend.id}>Delete</button></td>
+                    <div class="col-lg-6 hidden-sm text-right" id="chatoptions">
+                        <a class="btn btn-outline-info" <i id="profile_${friend.id}" class="bi bi-person-circle"></i></a>
+                        <a class="btn btn-outline-info" <i id="game_${friend.id}" class="bi bi-controller"></i></a>
+                    </div>
             `;
             userTableBody.appendChild(row);
         });
@@ -188,6 +193,12 @@ function HandleClickEvent(e) {
         HandleFriendRequest(target[0], target[1]) ;
     else if (target[0] === 'DELETE')
         DeleteFriend(target[1])
+    else if (target[0] === 'profile') {
+        createWindow('Profile', target[1]);
+    }
+    else if (target[0] === 'game') {
+        createWindow('Game', target[1]);
+    }
 }
 
 NotificationsSM.registerCallback(FRIENDS.STATUS_DISCONNECTED, user => {

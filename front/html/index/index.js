@@ -262,15 +262,15 @@ export function createWindow(appName, customData = null) {
     var windowContent = document.createElement('div');
     windowContent.classList.add('window-content');
     windowContent.id = uniqueId + '-content';
-
+    
     // Agregar la parte superior y el contenido a la ventana
     windowContainer.appendChild(windowTop);
     windowContainer.appendChild(windowContent);
-
+    
     // Agregar la ventana al contenedor existente
     var divRow = document.querySelector('.row');
     divRow.appendChild(windowContainer);
-
+    
     // Hacer la ventana draggable
     makeDraggable(windowContainer, '.window-top');
 
